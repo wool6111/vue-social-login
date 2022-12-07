@@ -1,17 +1,25 @@
 <template>
-	<h1>Naver</h1>
-	<div>
-		<div id="naver_id_login"></div>
-	</div>
+	<h1>로그인</h1>
+	<button @click="test()">카카오 로그인</button>
+	<button>네이버 로그인</button>
 </template>
 
 <script setup lang="ts">
-const naver_id_login = new window.naver_id_login('Client Id', 'callback URL');
-const state = naver_id_login.getUniqState();
-naver_id_login.setButton('white', 2, 40); // 버튼 설정
-naver_id_login.setState(state);
-// naver_id_login.setPopup(); // popup 설정을 위한 코드
-naver_id_login.init_naver_id_login();
+import { useKakao } from 'vue3-kakao-sdk';
+
+const { kakao, initialize } = useKakao();
+
+const test = async () => {
+	await initialize();
+	kakao.value.Auth.login({
+		success(success) {
+			console.log(success);
+		},
+		fail(err) {
+			console.error(err);
+		},
+	});
+};
 </script>
 
 <style scoped></style>
