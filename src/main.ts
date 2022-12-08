@@ -14,3 +14,9 @@ app.use(router);
 app.use(createVueKakaoSdk('API KEY'));
 
 app.mount('#app');
+
+declare global {
+	interface Window {
+		naver_id_login?: any;
+	}
+}
